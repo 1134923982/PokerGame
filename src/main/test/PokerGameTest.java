@@ -23,7 +23,7 @@ public class PokerGameTest {
     public void should_return_b_player_win_when_input_1C_3D_5H_7S_9D_2C_3D_4H_5S_9C(){
         //given
         PokerGame pokerGame = new PokerGame();
-        String pokers = "1C,3D,5H,7S,9D,2C,3D,4H,7D,10C";
+        String pokers = "1C,3D,5H,7S,8D,2C,3D,4H,7D,9C";
         String expectResult = "b player win";
         //when
         String actualResult = pokerGame.judge(pokers);

@@ -10,6 +10,8 @@ public class PokerGame {
         for(int i = aPlayer.length-1; i>=0; i--){
             if(Integer.parseInt(aPlayer[i].substring(0,1))> Integer.parseInt(bPlayer[i].substring(0,1))){
                 return "a player win";
+            }else {
+                return "b player win";
             }
         }
         return null;
