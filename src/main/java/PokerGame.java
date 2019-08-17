@@ -20,23 +20,36 @@ public class PokerGame {
         List<String> aPlayersPairs = getPairs(aPlayer);
         List<String> bPlayersPairs = getPairs(bPlayer);
 
-        if(aPlayersPairs.size() > bPlayersPairs.size()){
-            return aPlayerWin;
+        if(aPlayersPairs.size()>0 || bPlayersPairs.size()>0){
+            if (aPlayersPairs.size() > bPlayersPairs.size()) {
+                return aPlayerWin;
+            } else if (aPlayersPairs.size() < bPlayersPairs.size()) {
+                return bPlayerWin;
+            } else {
+                for (int i = 0; i < aPlayersPairs.size(); i++) {
+                    if (aPlayersPairs.get(i).substring(0, aPlayersPairs.get(i).length() - 1).equals(bPlayersPairs.get(i).substring(0, bPlayersPairs.get(i).length() - 1))) {
+                        continue;
+                    }
+                    return getPokersResult(aPlayersPairs.get(i), bPlayersPairs.get(i));
+                }
+            }
         }
 
         for (int i = aPlayer.length - 1; i >= 0; i--) {
-            if (aPlayer[i].substring(0, aPlayer[i].length()-1).equals(bPlayer[i].substring(0, aPlayer[i].length()-1))) {
+            if (aPlayer[i].substring(0, aPlayer[i].length() - 1).equals(bPlayer[i].substring(0, aPlayer[i].length() - 1))) {
                 continue;
             }
-            if (Integer.parseInt(aPlayer[i].substring(0, aPlayer[i].length()-1)) > Integer.parseInt(bPlayer[i].substring(0, bPlayer[i].length()-1))) {
-                return aPlayerWin;
-            } else {
-
-                return bPlayerWin;
-            }
+            return getPokersResult(aPlayer[i], bPlayer[i]);
         }
-
         return peace;
+    }
+
+    private String getPokersResult(String aPoker, String  bPoker) {
+        if (Integer.parseInt(aPoker.substring(0, aPoker.length()-1)) > Integer.parseInt( bPoker.substring(0,  bPoker.length()-1))) {
+            return aPlayerWin;
+        } else {
+            return bPlayerWin;
+        }
     }
 
     private List<String> getPairs(String[] aPlayer) {
