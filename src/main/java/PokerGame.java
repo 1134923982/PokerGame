@@ -23,17 +23,17 @@ public class PokerGame {
         if(isStraight(bPlayer) && !isStraight(aPlayer)){
             return bPlayerWin;
         }
-        if(isStraight(aPlayer) && isStraight(bPlayer)){
-            int aMaxValue = Integer.parseInt(aPlayer[aPlayer.length-1].substring(0,aPlayer[aPlayer.length-1].length()-1));
-            int bMaxValue = Integer.parseInt(bPlayer[bPlayer.length-1].substring(0,bPlayer[bPlayer.length-1].length()-1));
-            if(aMaxValue == bMaxValue){
-                return peace;
-            }else if (aMaxValue>bMaxValue){
-                return aPlayerWin;
-            }else {
-                return bPlayerWin;
-            }
-        }
+//        if(isStraight(aPlayer) && isStraight(bPlayer)){
+//            int aMaxValue = Integer.parseInt(aPlayer[aPlayer.length-1].substring(0,aPlayer[aPlayer.length-1].length()-1));
+//            int bMaxValue = Integer.parseInt(bPlayer[bPlayer.length-1].substring(0,bPlayer[bPlayer.length-1].length()-1));
+//            if(aMaxValue == bMaxValue){
+//                return peace;
+//            }else if (aMaxValue>bMaxValue){
+//                return aPlayerWin;
+//            }else {
+//                return bPlayerWin;
+//            }
+//        }
 
         String aThreeOfAKingPoker = getThreeOfAKingPoker(aPlayer);
         String bThreeOfAKingPoker = getThreeOfAKingPoker(bPlayer);
