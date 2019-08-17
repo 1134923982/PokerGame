@@ -1,11 +1,15 @@
 package main.java;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PokerGame {
     int pokersLength = 15;
+    String aPlayerWin = "a player win";
+    String bPlayerWin = "b player win";
+    String peace = "peace";
 
     public String judge(String pokers) {
         String[] aPlayer = parsePokers(pokers, 0, pokersLength);
@@ -13,17 +17,38 @@ public class PokerGame {
         aPlayer=sortPokers(aPlayer);
         bPlayer = sortPokers(bPlayer);
 
+        List<String> aPlayersPairs = getPairs(aPlayer);
+        List<String> bPlayersPairs = getPairs(bPlayer);
+
+        if(aPlayersPairs.size() > bPlayersPairs.size()){
+            return aPlayerWin;
+        }
+
         for (int i = aPlayer.length - 1; i >= 0; i--) {
             if (aPlayer[i].substring(0, aPlayer[i].length()-1).equals(bPlayer[i].substring(0, aPlayer[i].length()-1))) {
                 continue;
             }
             if (Integer.parseInt(aPlayer[i].substring(0, aPlayer[i].length()-1)) > Integer.parseInt(bPlayer[i].substring(0, bPlayer[i].length()-1))) {
-                return "a player win";
+                return aPlayerWin;
             } else {
-                return "b player win";
+
+                return bPlayerWin;
             }
         }
-        return "peace";
+
+        return peace;
+    }
+
+    private List<String> getPairs(String[] aPlayer) {
+        List<String> playerPairs = new ArrayList<>();
+        for (int i = 0; i < aPlayer.length - 1; i++) {
+            for (int j = i + 1; j < aPlayer.length; j++) {
+                if (aPlayer[i].substring(0, aPlayer[i].length() - 1).equals(aPlayer[j].substring(0, aPlayer[j].length() - 1))) {
+                    playerPairs.add(aPlayer[i]);
+                }
+            }
+        }
+        return playerPairs;
     }
 
     private String[] parsePokers(String pokers, int i, int pokersLength) {
