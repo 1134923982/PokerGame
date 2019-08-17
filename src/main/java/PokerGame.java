@@ -21,7 +21,7 @@ public class PokerGame {
                 return "b player win";
             }
         }
-        return null;
+        return "peace";
     }
 
     private String[] parsePokers(String pokers, int i, int pokersLength) {
