@@ -10,6 +10,8 @@ public class PokerGame {
     public String judge(String pokers) {
         String[] aPlayer = parsePokers(pokers, 0, pokersLength);
         String[] bPlayer = parsePokers(pokers, pokersLength, pokers.length());
+        aPlayer=sortPokers(aPlayer);
+        bPlayer = sortPokers(bPlayer);
 
         for (int i = aPlayer.length - 1; i >= 0; i--) {
             if (aPlayer[i].substring(0, aPlayer[i].length()-1).equals(bPlayer[i].substring(0, aPlayer[i].length()-1))) {
@@ -49,5 +51,18 @@ public class PokerGame {
             default:
                 return str;
         }
+    }
+
+    private String[] sortPokers(String[] pokers){
+        for(int i=0; i<pokers.length; i++){
+            for(int j=0; j<pokers.length-i-1; j++){
+                if(Integer.parseInt(pokers[j].substring(0, pokers[j].length()-1))>Integer.parseInt(pokers[j+1].substring(0, pokers[j+1].length()-1))){
+                    String temp = pokers[j];
+                    pokers[j] = pokers[j+1];
+                    pokers[j+1] = temp;
+                }
+            }
+        }
+        return pokers;
     }
 }
