@@ -8,6 +8,9 @@ public class PokerGame {
         String[] bPlayer = pokers.substring(pokersLength,pokers.length()-1).split(",");
 
         for(int i = aPlayer.length-1; i>=0; i--){
+            if(aPlayer[i].substring(0,1).equals(bPlayer[i].substring(0,1))){
+                continue;
+            }
             if(Integer.parseInt(aPlayer[i].substring(0,1))> Integer.parseInt(bPlayer[i].substring(0,1))){
                 return "a player win";
             }else {
