@@ -14,7 +14,7 @@ public class PokerGameTest {
         String pokers = "1C,3D,5H,7S,9D,2C,3D,4H,5S,8D";
         String expectResult = "a player win";
         //when
-        String actualResult = pokerGame.judge();
+        String actualResult = pokerGame.judge(pokers);
         //then
         Assert.assertEquals(expectResult, actualResult);
 
