@@ -17,17 +17,35 @@ public class PokerGame {
         aPlayer = sortPokers(aPlayer);
         bPlayer = sortPokers(bPlayer);
 
+        if(isStraight(aPlayer) && !isStraight(bPlayer)){
+            return aPlayerWin;
+        }
+        if(isStraight(bPlayer) && !isStraight(aPlayer)){
+            return bPlayerWin;
+        }
+//        if(isStraight(aPlayer) && isStraight(bPlayer)){
+//            int aMaxValue = Integer.parseInt(aPlayer[aPlayer.length-1].substring(0,aPlayer[aPlayer.length-1].length()-1));
+//            int bMaxValue = Integer.parseInt(bPlayer[bPlayer.length-1].substring(0,bPlayer[bPlayer.length-1].length()-1));
+//            if(aMaxValue == bMaxValue){
+//                return peace;
+//            }else if (aMaxValue>bMaxValue){
+//                return aPlayerWin;
+//            }else {
+//                return bPlayerWin;
+//            }
+//        }
+
         String aThreeOfAKingPoker = getThreeOfAKingPoker(aPlayer);
         String bThreeOfAKingPoker = getThreeOfAKingPoker(bPlayer);
-        if(aThreeOfAKingPoker!=null||bThreeOfAKingPoker!=null){
-            if(aThreeOfAKingPoker!=null&&bThreeOfAKingPoker==null){
+        if (aThreeOfAKingPoker != null || bThreeOfAKingPoker != null) {
+            if (aThreeOfAKingPoker != null && bThreeOfAKingPoker == null) {
                 return aPlayerWin;
-            }else if(aThreeOfAKingPoker==null&&bThreeOfAKingPoker!=null){
+            } else if (aThreeOfAKingPoker == null && bThreeOfAKingPoker != null) {
                 return bPlayerWin;
-            }else {
-                if(Integer.parseInt(aThreeOfAKingPoker)>Integer.parseInt(bThreeOfAKingPoker)){
+            } else {
+                if (Integer.parseInt(aThreeOfAKingPoker) > Integer.parseInt(bThreeOfAKingPoker)) {
                     return aPlayerWin;
-                }else {
+                } else {
                     return bPlayerWin;
                 }
             }
@@ -58,6 +76,16 @@ public class PokerGame {
             return getPokersResult(aPlayer[i], bPlayer[i]);
         }
         return peace;
+    }
+
+    private boolean isStraight(String[] pokers) {
+        List<String> collect = Arrays.stream(pokers).map(poker -> poker.substring(0, poker.length() - 1)).collect(Collectors.toList());
+        for (int i = 0; i < collect.size() - 1; i++) {
+            if (Integer.parseInt(collect.get(i)) + 1 != Integer.parseInt(collect.get(i + 1))){
+                return false;
+            }
+        }
+        return true;
     }
 
     private String getThreeOfAKingPoker(String[] aPlayer) {
