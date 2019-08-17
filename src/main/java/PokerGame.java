@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PokerGame {
     int pokersLength = 15;
@@ -16,6 +17,14 @@ public class PokerGame {
         String[] bPlayer = parsePokers(pokers, pokersLength, pokers.length());
         aPlayer = sortPokers(aPlayer);
         bPlayer = sortPokers(bPlayer);
+
+        if(isFlush(aPlayer) && !isFlush(bPlayer)){
+            return aPlayerWin;
+        }else {
+            if(!isFlush(aPlayer) && isFlush(bPlayer)){
+                return bPlayerWin;
+            }
+        }
 
         if(isStraight(aPlayer) && !isStraight(bPlayer)){
             return aPlayerWin;
@@ -76,6 +85,22 @@ public class PokerGame {
             return getPokersResult(aPlayer[i], bPlayer[i]);
         }
         return peace;
+    }
+
+    private boolean isFlush(String[] pokers){
+        List<String> suitList = Arrays.stream(pokers).map(poker -> poker.substring(poker.length() - 1, poker.length())).distinct().collect(Collectors.toList());
+        if(suitList.size()==1){
+            return true;
+        }
+        return false;
+//        for(int i=0; i<2; i++){
+//            for(int j=i+1; j<collect.size(); j++){
+//                if(collect.get(i).equals(collect.get(j))){
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
     }
 
     private boolean isStraight(String[] pokers) {
