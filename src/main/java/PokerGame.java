@@ -17,6 +17,7 @@ public class PokerGame {
     }
 
     public String judge(String pokers) {
+        pokers = pokers.toUpperCase();
         String[] aPlayer = parsePokers(pokers, 0, pokersLength);
         String[] bPlayer = parsePokers(pokers, pokersLength, pokers.length());
         aPlayer = sortPokers(aPlayer);
