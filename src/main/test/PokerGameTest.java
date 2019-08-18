@@ -200,11 +200,23 @@ public class PokerGameTest {
     }
 
     @Test
-    public void should_return_a_player_win_when_input_4S_4D_4H_6S_6S_2C_3D_4C_5C_6C(){
+    public void should_return_a_player_win_when_input_4S_4D_4H_6D_6S_2C_3D_4C_5C_6C(){
         //given
         PokerGame pokerGame = new PokerGame();
-        String pokers = "4S,4D,4H,6S,6S,2C,3C,4C,5C,6C";
+        String pokers = "4S,4D,4H,6S,6D,2C,3C,4C,5C,6C";
         String expectResult = "a player win";
+        //when
+        String actualResult = pokerGame.judge(pokers);
+        //then
+        Assert.assertEquals(expectResult, actualResult);
+    }
+
+    @Test
+    public void should_return_b_player_win_when_input_4S_4D_4H_6S_6S_2C_2D_2S_2H_6C(){
+        //given
+        PokerGame pokerGame = new PokerGame();
+        String pokers = "4S,4D,4H,6S,6D,2C,2D,2S,2H,6C";
+        String expectResult = "b player win";
         //when
         String actualResult = pokerGame.judge(pokers);
         //then
