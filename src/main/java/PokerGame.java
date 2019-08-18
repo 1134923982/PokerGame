@@ -15,6 +15,12 @@ public class PokerGame {
         aPlayer = sortPokers(aPlayer);
         bPlayer = sortPokers(bPlayer);
 
+        if(isFlush(aPlayer)&&isStraight(aPlayer)&&(!isStraight(bPlayer)||!isFlush(bPlayer))){
+            return aPlayerWin;
+        }else if(isFlush(bPlayer)&&isStraight(bPlayer)&&(!isStraight(aPlayer)||!isFlush(aPlayer))){
+            return bPlayerWin;
+        }
+
         String aFourOfAKingPoker = getRepeatOfAKingPoker(aPlayer, 4);
         String bFourOfAKingPoker = getRepeatOfAKingPoker(bPlayer, 4);
         if (aFourOfAKingPoker != null && bFourOfAKingPoker == null) {
