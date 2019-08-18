@@ -235,5 +235,17 @@ public class PokerGameTest {
         Assert.assertEquals(expectResult, actualResult);
     }
 
+    @Test
+    public void should_return_a_player_win_when_input_4S_4D_4H_4C_5S_2C_TD_TS_TH_TC(){
+        //given
+        PokerGame pokerGame = new PokerGame();
+        String pokers = "4S,4D,4H,4C,5S,2C,TD,TS,TH,TC";
+        String expectResult = "b player win";
+        //when
+        String actualResult = pokerGame.judge(pokers);
+        //then
+        Assert.assertEquals(expectResult, actualResult);
+    }
+
 
 }
