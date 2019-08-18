@@ -1,8 +1,6 @@
 package main.java;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,6 +16,15 @@ public class PokerGame {
         aPlayer = sortPokers(aPlayer);
         bPlayer = sortPokers(bPlayer);
 
+        HashMap<String, String> aFullHose = getFullHose(aPlayer);
+        HashMap<String, String> bFullHose = getFullHose(bPlayer);
+
+        if((aFullHose.get("threeOfAKingPoker")!=null&&aFullHose.get("pair")!=null)&&(bFullHose.get("pair")==null)){
+            return aPlayerWin;
+        }else if((bFullHose.get("threeOfAKingPoker")!=null&&bFullHose.get("pair")!=null)&&(aFullHose.get("pair")==null)){
+            return bPlayerWin;
+        }
+
         if(isFlush(aPlayer) && !isFlush(bPlayer)){
             return aPlayerWin;
         }else {
@@ -32,17 +39,6 @@ public class PokerGame {
         if(isStraight(bPlayer) && !isStraight(aPlayer)){
             return bPlayerWin;
         }
-//        if(isStraight(aPlayer) && isStraight(bPlayer)){
-//            int aMaxValue = Integer.parseInt(aPlayer[aPlayer.length-1].substring(0,aPlayer[aPlayer.length-1].length()-1));
-//            int bMaxValue = Integer.parseInt(bPlayer[bPlayer.length-1].substring(0,bPlayer[bPlayer.length-1].length()-1));
-//            if(aMaxValue == bMaxValue){
-//                return peace;
-//            }else if (aMaxValue>bMaxValue){
-//                return aPlayerWin;
-//            }else {
-//                return bPlayerWin;
-//            }
-//        }
 
         String aThreeOfAKingPoker = getThreeOfAKingPoker(aPlayer);
         String bThreeOfAKingPoker = getThreeOfAKingPoker(bPlayer);
@@ -86,6 +82,26 @@ public class PokerGame {
         }
         return peace;
     }
+    
+    private HashMap<String ,String> getFullHose(String[] pokers){
+        HashMap<String, String> resultMap = new HashMap<>();
+        String threeOfAKingPoker = getThreeOfAKingPoker(pokers);
+        if(threeOfAKingPoker==null){
+            resultMap.put("threeOfAKingPoker", null);
+            return resultMap;
+        }
+        resultMap.put("threeOfAKingPoker", threeOfAKingPoker);
+        List<String> remainPokers = Arrays.stream(pokers)
+                .filter(poker -> !poker.substring(0, poker.length() - 1).equals(threeOfAKingPoker))
+                .map(item -> item.substring(0, item.length() - 1))
+                .distinct()
+                .collect(Collectors.toList());
+        if(remainPokers.size()==1){
+            resultMap.put("pair", remainPokers.get(0));
+            return resultMap;
+        }
+        return resultMap;
+    }
 
     private boolean isFlush(String[] pokers){
         List<String> suitList = Arrays.stream(pokers).map(poker -> poker.substring(poker.length() - 1, poker.length())).distinct().collect(Collectors.toList());
@@ -93,14 +109,6 @@ public class PokerGame {
             return true;
         }
         return false;
-//        for(int i=0; i<2; i++){
-//            for(int j=i+1; j<collect.size(); j++){
-//                if(collect.get(i).equals(collect.get(j))){
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
     }
 
     private boolean isStraight(String[] pokers) {
